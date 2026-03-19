@@ -2,7 +2,10 @@ const db = require('../config/db');
 
 // GET ALL BOOKS
 exports.getBooks = (req, res) => {
-    db.query("SELECT * FROM books", (err, result) => {
+    db.query({
+        sql: "SELECT * FROM books",
+        timeout: 10000
+    }, (err, result) => {
         if (err) return res.status(500).json(err);
         res.json(result);
     });

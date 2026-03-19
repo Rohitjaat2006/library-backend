@@ -1,8 +1,3 @@
-console.log("ENV CHECK:");
-console.log(process.env.DB_HOST);
-console.log(process.env.DB_USER);
-console.log(process.env.DB_NAME);
-
 const mysql = require('mysql2');
 
 const db = mysql.createConnection({
@@ -10,14 +5,15 @@ const db = mysql.createConnection({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    port: process.env.DB_PORT
+    port: process.env.DB_PORT,
+    connectTimeout: 10000 // VERY IMPORTANT
 });
 
 db.connect((err) => {
     if (err) {
-        console.error("Cloud DB connection failed ❌:", err);
+        console.error("❌ DB Error:", err);
     } else {
-        console.log("Cloud MySQL Connected ✅");
+        console.log("✅ MySQL Connected");
     }
 });
 
